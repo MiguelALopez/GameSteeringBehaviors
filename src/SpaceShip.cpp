@@ -1,7 +1,5 @@
 #include "SpaceShip.h"
-#include "Projectile.h"
 #include "GameManager.h"
-#include "Asteroid.h"
 #include "Definitions.h"
 #include <stdio.h>
 #include <iostream>
@@ -26,7 +24,6 @@ SpaceShip::SpaceShip(GameManager * ownerGame, sf::Vector2f initialPosition)
 
     speed = 0.0f;
     acceleration = 160.0f;
-    vida = 3;
 
     accelerating = false;
 
@@ -40,15 +37,6 @@ SpaceShip::~SpaceShip()
 {
 
 }
-
-// Encargado de lanzar un proyectil
-void SpaceShip::EvalProjectile(Projectile::TypeProjectile typeProjectile)
-{
-    
-        Projectile * projectile = new Projectile(gameManager, position, orientation, typeProjectile, GameObject::PROJECTILE_SPACE_SHIP);
-        gameManager->RegisterGameObject(projectile); // Se registra la creacion del nuevo proyectil
-}
-
 
 void SpaceShip::Accelerate(float deltaTime, float mode){
     speed += acceleration * deltaTime * mode;
@@ -81,17 +69,6 @@ void SpaceShip::Update(float deltaTime)
     sprite2.SetPosition(tmp);
 }
 
-void SpaceShip::Damage(float x, float y){
-    vida--;
-    printf("Vidas: %d\n", vida);
-    SetSpacePosition(sf::Vector2f(x, y));
-    speed = 0;
-    if(vida <= 0){
-        gameManager->SetGameState(GameManager::GAMEOVER);
-        Destroy();
-    }
-}
-
 void SpaceShip::Draw(sf::RenderWindow & render){
     GameObject::Draw(render);
     if (accelerating){
@@ -108,13 +85,6 @@ bool SpaceShip::LoadImages()
 }
 
 // Getters and Setters
-
-int SpaceShip::GetVida(){
-    return vida;
-}
-void SpaceShip::SetVida(int vida){
-    this->vida = vida;
-}
 
 float SpaceShip::GetRotationDir(){
     return rotationDir;
