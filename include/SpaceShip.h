@@ -45,4 +45,9 @@ private:
     bool accelerating;
 
     sf::Vector2f deltaPosition;
+
+    int i;
+    float N;
+    float A;
+    float B;
 };

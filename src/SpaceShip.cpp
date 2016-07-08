@@ -31,6 +31,11 @@ SpaceShip::SpaceShip(GameManager * ownerGame, sf::Vector2f initialPosition)
 
     deltaPosition.x = initialPosition.x + 50;
     deltaPosition.y = initialPosition.y + 50;
+
+    N = 60;
+    i= 0;
+    A = 100;
+    B= 600;
 }
 
 SpaceShip::~SpaceShip()
@@ -67,6 +72,20 @@ void SpaceShip::Update(float deltaTime)
     sprite2.SetRotation(orientation + spriteRotation);
     sf::Vector2f tmp = sf::Vector2f(position.x, position.y);
     sprite2.SetPosition(tmp);
+
+    if (i<=N){
+        float v=0.0f;
+        float x = 0.0f;
+        v = i/N;
+        x = (B * v) + (A * (1 - v));
+        SetSpacePosition(sf::Vector2f(x, 300));
+        i++;
+    } else {
+        float c = A;
+        A = B;
+        B = c;
+        i = 0;
+    }
 }
 
 void SpaceShip::Draw(sf::RenderWindow & render){
