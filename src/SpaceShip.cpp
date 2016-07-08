@@ -97,7 +97,7 @@ void SpaceShip::Draw(sf::RenderWindow & render){
 
 bool SpaceShip::LoadImages()
 {
-    if (!spaceShipImg.LoadFromFile("graphics/Spaceship01.png") || !trailImg.LoadFromFile("graphics/JetTrail.png"))
+    if (!spaceShipImg.LoadFromFile("graphics/ball.png") || !trailImg.LoadFromFile("graphics/JetTrail.png"))
         return false;
 
     return true;

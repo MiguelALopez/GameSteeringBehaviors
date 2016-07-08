@@ -1,29 +1,56 @@
-#include "include/Vector.h"
-#include <stdio.h>
 #include <iostream>
-#define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
-using namespace std;
+#include <SFML/Graphics.hpp>
+#include "GameManager.h"
+#include <stdlib.h>
+#include <time.h>
 
-int main(){
-    Vector vector = Vector(3.0f, 5.0f);
-    Vector vector1 = Vector(1.0f, 2.0f);
+int main()
+{
+    srand(time(NULL));
+    // Create the main window
+    sf::RenderWindow app(sf::VideoMode(800, 600), "Space Game");
 
-    Vector resultado = vector + vector1;
+    GameManager gameManager(app);
 
-    printf("resultado x: %f, y: %f\n", resultado.x, resultado.y);
-
-    float v=0.0f;
-    float N = 15.0f;
-    float A= 10.0f;
-    float B= 35.0f;
-    float x = 0.0f;
-
-    for (int i=0; i <= N; i++){
-    	v = i/N;
-    	v= v * v;
-    	x = (B * v) + (A * (1 - v));
-    	cout << x << endl;
+    if (!gameManager.Initialize())
+    {
+        std::cout << "Failure loading graphics." << std::endl;
+        return EXIT_FAILURE;
     }
 
-    return 0;
+    // Clock used to calculate the delta time
+    sf::Clock deltaClock;
+
+	// Start the game loop
+    while (app.IsOpened())
+    {
+        // Process events
+        sf::Event event;
+        while (app.GetEvent(event))
+        {
+            // Close window : exit
+            if (event.Type == sf::Event::Closed)
+                app.Close();
+        }
+
+        float elapsedTime = deltaClock.GetElapsedTime();
+
+        if (elapsedTime > 0)
+        {
+            gameManager.UpdateGame(elapsedTime);
+            deltaClock.Reset();
+        }
+
+        // Clear screen
+        app.Clear();
+
+        gameManager.DrawGame();
+
+        // Update the window
+        app.Display();
+    }
+
+    gameManager.FreeResources();
+
+    return EXIT_SUCCESS;
 }
