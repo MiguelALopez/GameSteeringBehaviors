@@ -134,6 +134,7 @@ void GameManager::UpdateGame(float deltaTime)
             arrowLeftSprite.SetPosition(arrowLeftSprite.GetPosition().x, arrowLeftSprite.GetPosition().y - 55);
             arrowRightSprite.SetPosition(arrowRightSprite.GetPosition().x, arrowRightSprite.GetPosition().y - 55);
             flag_menu = 0;
+            
         }
         if (input.IsKeyDown(sf::Key::Down) && flag_menu == 0){
             arrowLeftSprite.SetPosition(arrowLeftSprite.GetPosition().x, arrowLeftSprite.GetPosition().y + 55);
