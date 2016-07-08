@@ -29,14 +29,8 @@ class GameManager
 
         void RegisterGameObject(GameObject * newGameObject);
         void RemoveGameObject(GameObject * gameObjectToRemove);
-
-        void LaunchRandomAsteroids();
-        void LaunchAsteroids(float x, float y, int ori, int tipo);
-        void LaunchRandomAlienShips();
-        void LaunchAlienShips(float x, float y, int ori);
         bool CircleCollision(sf::Vector2f p1, float radius1, sf::Vector2f p2, float radius2);
 
-        void AddPoints(int newPoints);
         void Game(float deltaTime);
 
         int flag_menu; // Variable que verifica si la flecha esta arriba o abajo
@@ -68,13 +62,6 @@ class GameManager
 
         std::vector<GameObject *> activeGameObjects;
         std::vector<GameObject *> newGameObjects;
-
-        float asteroidTimer;
-        float alienShipTimer;
-        int points;
-        float countPowerShot;
-        float weaponTimer; // Variable encargada de almacenar el tiempo minimo entre cada disparo
-        int shotStatus;
 
         GameState gameState;
 };

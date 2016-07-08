@@ -14,7 +14,7 @@ Vector Vector::operator +(const Vector vector){
 }
 
 Vector Vector::operator -(const Vector vector){
-    return Vector(this->x - vector.x, this->x - vector-y);
+    return Vector(this->x - vector.x, this->y - vector.y);
 }
 
 Vector Vector::operator *(const float escalar){
