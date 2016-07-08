@@ -17,10 +17,8 @@ SpaceShip::SpaceShip(GameManager * ownerGame, Vector initialPosition)
     : GameObject(ownerGame){
 
     gameManager = ownerGame;
-    position = initialPosition;
-    sprite.SetImage(spaceShipImg);
-    sprite.SetCenter(sprite.GetSize().x / 2, sprite.GetSize().y / 2);
-    sprite2.SetCenter((sprite.GetSize().x / 2)-20, (sprite.GetSize().y / 2)-85);
+
+
     sprite.SetScale(1.0f, 1.0f);
     spriteRotation = -90;
     rotationDir = 0;
@@ -31,8 +29,24 @@ SpaceShip::SpaceShip(GameManager * ownerGame, Vector initialPosition)
     acceleration = 160.0f;
 
     accelerating = false;
+    sentido = true;
 
+    sprite.SetImage(spaceShipImg);
     sprite2.SetImage(spaceShipImg2);
+    sprite3.SetImage(spaceShipImg3);
+    sprite4.SetImage(spaceShipImg4);
+
+    sprite.SetCenter(sprite.GetSize().x / 2, sprite.GetSize().y / 2);
+    sprite2.SetCenter(sprite.GetSize().x / 2, sprite.GetSize().y / 2);
+    sprite3.SetCenter(sprite.GetSize().x / 2, sprite.GetSize().y / 2);
+    sprite4.SetCenter(sprite.GetSize().x / 2, sprite.GetSize().y / 2);
+
+
+//    position = initialPosition;
+//    position2 = initialPosition;
+//    position3 = initialPosition;
+//    position4 = initialPosition;
+//    position5 = initialPosition;
 
     N = 120;
     i= 0;
@@ -57,6 +71,17 @@ void SpaceShip::Accelerate(float deltaTime, float mode){
     }
 }
 
+float SpaceShip::EaseOutBounce(float t, float b, float c){
+    if(t < (1 / 2.75f))
+        return c*(7.5625f*t*t) + b;
+    else if(t < (2 / 2.75f))
+        return c*(7.5625f*(t -= (1.5f / 2.75f))*t + .75f) + b;
+    else if (t < (2.5f / 2.75f))
+        return c*(7.5625f*(t -= (2.25f / 2.75f))*t + .9375f) + b;
+    else
+        return c*(7.5625f*(t -= (2.625f / 2.75f))*t + .984375f) + b;
+}
+
 void SpaceShip::Update(float deltaTime)
 {
     GameObject::Update(deltaTime);
@@ -71,33 +96,69 @@ void SpaceShip::Update(float deltaTime)
 
 //    position += direction * speed * deltaTime;
 
-    sprite2.SetRotation(orientation + spriteRotation);
-    sf::Vector2f tmp = sf::Vector2f(position.x, position.y);
-    sprite2.SetPosition(tmp);
+//    sprite2.SetRotation(orientation + spriteRotation);
+//    sf::Vector2f tmp = sf::Vector2f(position.x, position.y);
+//    sprite2.SetPosition(tmp);
 
-    if (i<=N){
+    if (i<=N && i >= 0){
         float v=0.0f;
         float x = 0.0f;
         v = i/N;
         x = (B * v) + (A * (1 - v));
-        position = Vector(x, 300);
-        i++;
+        position = Vector(x, 100);
+
+        v = SMOOTHSTEP(v);
+        x = (B * v) + (A * (1 - v));
+        position2 = Vector(x, 200);
+
+        v = i/N;
+        v = v * v;
+        x = (B * v) + (A * (1 - v));
+        position3 = Vector(x, 300);
+
+        v = i/N;
+        x = (B * v) + (A * (1 - v));
+        v = v * v;
+        int y = (500 * v) + (400 * (1 - v));
+//        v = EaseOutBounce(v, 400, 500);
+//        int y =(500 * v) + (400 * (1 - v));
+        position4 = Vector(x, y);
+
+
+        if(sentido) {
+            i++;
+        }else{
+            i--;
+        }
     } else {
-        float c = A;
-        A = B;
-        B = c;
-        i = 0;
+        if(sentido){
+            sentido = false;
+            i--;
+        } else{
+            sentido = true;
+            i++;
+        }
+
     }
 }
 
 void SpaceShip::Draw(sf::RenderWindow & render){
     GameObject::Draw(render);
+    sprite2.SetPosition(sf::Vector2f(position2.x, position2.y));
+    render.Draw(sprite2);
+
+    sprite3.SetPosition(sf::Vector2f(position3.x, position3.y));
+    render.Draw(sprite3);
+
+    sprite4.SetPosition(sf::Vector2f(position4.x, position4.y));
+    render.Draw(sprite4);
 }
 
 bool SpaceShip::LoadImages()
 {
     if (!spaceShipImg.LoadFromFile("graphics/ball.png") || !trailImg.LoadFromFile("graphics/JetTrail.png")
-        || !spaceShipImg2.LoadFromFile("graphics/ball01.png") || !spaceShipImg3.LoadFromFile("graphics/ball01.png"))
+        || !spaceShipImg2.LoadFromFile("graphics/ball01.png") || !spaceShipImg3.LoadFromFile("graphics/ball01.png")
+            || !spaceShipImg4.LoadFromFile("graphics/ball01.png"))
         return false;
 
     return true;

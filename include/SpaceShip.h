@@ -1,6 +1,8 @@
 #pragma once
+#define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
 
 #include "GameObject.h"
+//#include "Vector.h"
 
 class SpaceShip : public GameObject
 {
@@ -15,6 +17,7 @@ public:
     static bool LoadImages();
 
     void Accelerate(float deltaTime, float mode);
+    float EaseOutBounce(float t, float b, float c);
 
     // Getters and Setters
     int GetVida();
@@ -40,16 +43,24 @@ private:
     static sf::Image spaceShipImg5;
     static sf::Image trailImg;
 
+    sf::Sprite sprite2;
+    sf::Sprite sprite3;
+    sf::Sprite sprite4;
+    sf::Sprite sprite5;
+
+    Vector position2;
+    Vector position3;
+    Vector position4;
+    Vector position5;
+
     float rotationDir; // Direccion de rotacion de la nave
     
     float speed; //Velocidad de la nave
     float acceleration; // Aceleracion de la nave
 
-    sf::Sprite sprite2;
-    sf::Sprite sprite3;
-    sf::Sprite sprite4;
-    sf::Sprite sprite5;
+
     bool accelerating;
+    bool sentido;
 
     int i;
     float N;
