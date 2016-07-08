@@ -34,6 +34,10 @@ public:
 private:
 
     static sf::Image spaceShipImg;
+    static sf::Image spaceShipImg2;
+    static sf::Image spaceShipImg3;
+    static sf::Image spaceShipImg4;
+    static sf::Image spaceShipImg5;
     static sf::Image trailImg;
 
     float rotationDir; // Direccion de rotacion de la nave
@@ -42,6 +46,9 @@ private:
     float acceleration; // Aceleracion de la nave
 
     sf::Sprite sprite2;
+    sf::Sprite sprite3;
+    sf::Sprite sprite4;
+    sf::Sprite sprite5;
     bool accelerating;
 
     int i;

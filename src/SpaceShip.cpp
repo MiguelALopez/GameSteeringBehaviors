@@ -3,9 +3,14 @@
 #include "Definitions.h"
 #include <stdio.h>
 #include <iostream>
+#define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
 using namespace std;
 
 sf::Image SpaceShip::spaceShipImg;
+sf::Image SpaceShip::spaceShipImg2;
+sf::Image SpaceShip::spaceShipImg3;
+sf::Image SpaceShip::spaceShipImg4;
+sf::Image SpaceShip::spaceShipImg5;
 sf::Image SpaceShip::trailImg;
 
 SpaceShip::SpaceShip(GameManager * ownerGame, Vector initialPosition)
@@ -27,7 +32,7 @@ SpaceShip::SpaceShip(GameManager * ownerGame, Vector initialPosition)
 
     accelerating = false;
 
-    sprite2.SetImage(trailImg);
+    sprite2.SetImage(spaceShipImg2);
 
     N = 120;
     i= 0;
@@ -87,14 +92,12 @@ void SpaceShip::Update(float deltaTime)
 
 void SpaceShip::Draw(sf::RenderWindow & render){
     GameObject::Draw(render);
-    if (accelerating){
-        render.Draw(sprite2);
-    }
 }
 
 bool SpaceShip::LoadImages()
 {
-    if (!spaceShipImg.LoadFromFile("graphics/ball.png") || !trailImg.LoadFromFile("graphics/JetTrail.png"))
+    if (!spaceShipImg.LoadFromFile("graphics/ball.png") || !trailImg.LoadFromFile("graphics/JetTrail.png")
+        || !spaceShipImg2.LoadFromFile("graphics/ball01.png") || !spaceShipImg3.LoadFromFile("graphics/ball01.png"))
         return false;
 
     return true;
