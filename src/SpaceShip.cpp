@@ -116,13 +116,14 @@ void SpaceShip::Update(float deltaTime)
         x = (B * v) + (A * (1 - v));
         position3 = Vector(x, 300);
 
+        float y= 0.0f;
         v = i/N;
         x = (B * v) + (A * (1 - v));
         v = v * v;
-        int y = (500 * v) + (400 * (1 - v));
+        y = EaseOut((float) i, 100.0f, 400.0f, (float) N);
 //        v = EaseOutBounce(v, 400, 500);
 //        int y =(500 * v) + (400 * (1 - v));
-        position4 = Vector(x, y);
+        position4 = Vector(x, (int)y);
 
 
         if(sentido) {
@@ -139,6 +140,21 @@ void SpaceShip::Update(float deltaTime)
             i++;
         }
 
+    }
+}
+
+float SpaceShip::EaseOut(float t,float b , float c, float d) {
+    if ((t/=d) < (1/2.75f)) {
+        return c*(7.5625f*t*t) + b;
+    } else if (t < (2/2.75f)) {
+        float postFix = t-=(1.5f/2.75f);
+        return c*(7.5625f*(postFix)*t + .75f) + b;
+    } else if (t < (2.5/2.75)) {
+            float postFix = t-=(2.25f/2.75f);
+        return c*(7.5625f*(postFix)*t + .9375f) + b;
+    } else {
+        float postFix = t-=(2.625f/2.75f);
+        return c*(7.5625f*(postFix)*t + .984375f) + b;
     }
 }
 

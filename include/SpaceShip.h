@@ -32,6 +32,8 @@ public:
     float GetAcceleration();
     void SetAcceleration(float acceleration);
 
+    float EaseOut(float t,float b , float c, float d);
+
     sf::Image GetSpaceShipImg();
 
 private:
