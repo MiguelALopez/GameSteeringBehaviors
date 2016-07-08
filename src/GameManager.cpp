@@ -82,6 +82,8 @@ void GameManager::Game(float deltaTime){
     if (input.IsKeyDown(sf::Key::Right))
         rotationDir -= 2.0f;
 
+    cout << input.GetMouseX() << ", " << input.GetMouseY() << endl;
+
     spaceShip->SetRotationDir(rotationDir);
 
 
