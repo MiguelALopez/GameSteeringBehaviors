@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Vector.h"
 
 class GameManager;
 
@@ -26,8 +27,8 @@ public:
     // Getters and Setters
     float GetSpaceWidth();
     float GetSpaceHeight();
-    sf::Vector2f GetSpacePosition();
-    void SetSpacePosition(sf::Vector2f position);
+    Vector GetSpacePosition();
+    void SetSpacePosition(Vector position);
 
     sf::Sprite GetSprite();
     void SetSprite(sf::Sprite sprite);
@@ -46,7 +47,7 @@ protected:
     GameManager * gameManager;
 
     sf::Sprite sprite;
-    sf::Vector2f position;
+    Vector position;
     float orientation;
     float spriteRotation;
 

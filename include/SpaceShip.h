@@ -6,7 +6,7 @@ class SpaceShip : public GameObject
 {
 public:
 
-    SpaceShip(GameManager * ownerGame, sf::Vector2f initialPosition);
+    SpaceShip(GameManager * ownerGame, Vector initialPosition);
     virtual ~SpaceShip();
 
     virtual void Update(float deltaTime);
@@ -43,8 +43,6 @@ private:
 
     sf::Sprite sprite2;
     bool accelerating;
-
-    sf::Vector2f deltaPosition;
 
     int i;
     float N;

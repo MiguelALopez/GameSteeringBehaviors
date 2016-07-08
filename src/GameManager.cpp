@@ -12,6 +12,9 @@ GameManager::GameManager(sf::RenderWindow & appWindow) :
     gameState = MENU;
 
     flag_menu = 0;
+
+    i = 0;
+    n = 4260;
 }
 
 GameManager::~GameManager()
@@ -56,7 +59,7 @@ bool GameManager::Initialize()
     if (!SpaceShip::LoadImages())
         return false;
 
-    spaceShip = new SpaceShip(this, sf::Vector2f(renderWindow.GetWidth()/2, renderWindow.GetHeight()/2));
+    spaceShip = new SpaceShip(this, Vector(renderWindow.GetWidth()/2, renderWindow.GetHeight()/2));
     RegisterGameObject(spaceShip);
     return true;
 }
@@ -98,7 +101,7 @@ void GameManager::Game(float deltaTime){
     for (std::vector<GameObject *>::iterator it = activeGameObjects.begin();
          it != activeGameObjects.end(); ++it)
     {
-        // renderWindow.GetWidth()/2, renderWindow.GetHeight()/2
+        /*// renderWindow.GetWidth()/2, renderWindow.GetHeight()/2
         // Verifica si se pasa del borde izquierdo
         if((*it)->GetSpacePosition().x < 0){
             (*it)->SetSpacePosition(sf::Vector2f(renderWindow.GetWidth(), (*it)->GetSpacePosition().y));
@@ -116,7 +119,7 @@ void GameManager::Game(float deltaTime){
         // Verifica si se pasa del borde inferior
         if((*it)->GetSpacePosition().y > renderWindow.GetHeight()){
             (*it)->SetSpacePosition(sf::Vector2f((*it)->GetSpacePosition().x, 0));
-        }
+        }*/
 
         (*it)->Update(deltaTime);
         if (it == activeGameObjects.end())

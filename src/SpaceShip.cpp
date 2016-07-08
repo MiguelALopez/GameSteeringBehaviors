@@ -8,7 +8,7 @@ using namespace std;
 sf::Image SpaceShip::spaceShipImg;
 sf::Image SpaceShip::trailImg;
 
-SpaceShip::SpaceShip(GameManager * ownerGame, sf::Vector2f initialPosition)
+SpaceShip::SpaceShip(GameManager * ownerGame, Vector initialPosition)
     : GameObject(ownerGame){
 
     gameManager = ownerGame;
@@ -29,13 +29,10 @@ SpaceShip::SpaceShip(GameManager * ownerGame, sf::Vector2f initialPosition)
 
     sprite2.SetImage(trailImg);
 
-    deltaPosition.x = initialPosition.x + 50;
-    deltaPosition.y = initialPosition.y + 50;
-
-    N = 60;
+    N = 120;
     i= 0;
-    A = 100;
-    B= 600;
+    A = 50;
+    B= 750;
 }
 
 SpaceShip::~SpaceShip()
@@ -67,7 +64,7 @@ void SpaceShip::Update(float deltaTime)
     direction.x = cos(-angle);
     direction.y = sin(-angle);
 
-    position += direction * speed * deltaTime;
+//    position += direction * speed * deltaTime;
 
     sprite2.SetRotation(orientation + spriteRotation);
     sf::Vector2f tmp = sf::Vector2f(position.x, position.y);
@@ -78,7 +75,7 @@ void SpaceShip::Update(float deltaTime)
         float x = 0.0f;
         v = i/N;
         x = (B * v) + (A * (1 - v));
-        SetSpacePosition(sf::Vector2f(x, 300));
+        position = Vector(x, 300);
         i++;
     } else {
         float c = A;

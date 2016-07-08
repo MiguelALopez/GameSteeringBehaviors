@@ -64,6 +64,9 @@ class GameManager
         std::vector<GameObject *> newGameObjects;
 
         GameState gameState;
+
+        int n;
+        int i;
 };
 
 #endif // GAMEMANAGER_H

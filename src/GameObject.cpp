@@ -29,7 +29,7 @@ void GameObject::Update(float deltaTime)
 void GameObject::Draw(sf::RenderWindow & render)
 {
     sprite.SetRotation(orientation + spriteRotation);
-    sprite.SetPosition(position);
+    sprite.SetPosition(sf::Vector2f(position.x, position.y));
     render.Draw(sprite);
 }
 
@@ -43,11 +43,11 @@ float GameObject::GetSpaceHeight(){
     return sprite.GetSize().y;
 }
 
-sf::Vector2f GameObject::GetSpacePosition(){
-    return sprite.GetPosition();
+Vector GameObject::GetSpacePosition(){
+    return position;
 }
 
-void GameObject::SetSpacePosition(sf::Vector2f position){
+void GameObject::SetSpacePosition(Vector position){
     this->position = position;
 }
 
